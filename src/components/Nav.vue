@@ -27,19 +27,23 @@
 
     <div class="navbar-end">
       <div class="navbar-item">
+       
         <div class="buttons">
+          <template v-if="user.loggedIn ==true">
             <router-link to="/dashboard" class="button is-link">
-            <strong>Dashboard</strong>
+            <strong>Dashboard </strong>
           </router-link>
-          <button to="/signup" class="button is-danger">
-            <strong>Logout</strong>
-          </button>
+        
+          <button class="button is-danger" @click.prevent="signout">Logout</button>
+    </template>
+    <template v-else>
           <router-link to="/signup" class="button is-primary">
             <strong>Sign up</strong>
           </router-link>
           <router-link to="/signin" class="button is-light">
             Sign in
           </router-link>
+          </template>
         </div>
       </div>
     </div>
@@ -51,9 +55,38 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
+import firebase from 'firebase'
 export default {
-name:"Nav"
+name:"Nav",
+computed: {
+  ...mapGetters({
+    user: 'user'
+  })
 }
+,
+methods: {
+  ...mapActions({logout:'logout'}),
+  signout(){
+  alert('are you sure to log out')
+
+  firebase.auth().signOut()
+  .then(()=>{
+
+    alert('You are logged out')
+    this.$router.replace({path:'/signin'})
+
+  })
+ }
+},
+ 
+created(){
+ 
+}
+}
+
+
 </script>
 
 <style scoped>

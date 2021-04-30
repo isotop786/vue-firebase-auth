@@ -23,6 +23,11 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 
+// firebase event after authentication success
+firebase.auth().onAuthStateChanged((user)=>{
+  store.dispatch('fatchUser',user)
+})
+
 
 new Vue({
   router,
