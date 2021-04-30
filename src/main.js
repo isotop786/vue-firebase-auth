@@ -26,11 +26,19 @@ firebase.analytics();
 // firebase event after authentication success
 firebase.auth().onAuthStateChanged((user)=>{
   store.dispatch('fatchUser',user)
+
+
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+  
 })
 
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+// new Vue({
+//   router,
+//   store,
+//   render: h => h(App)
+// }).$mount('#app')

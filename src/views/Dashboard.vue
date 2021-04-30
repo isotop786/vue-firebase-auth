@@ -2,11 +2,11 @@
   <div>
      <div class="container">
          <div class="columns">
-             <div class="column is-half">
+             <div class="column is-half    ">
                  <h1 class="title has-text-primary">
                      {{user.data.displayName}}
                  </h1>
-                 <div class="card p-3">
+                 <div class="card p-3 has-background-light ">
                    Email:  {{user.data.email}}
                  </div>
              </div>

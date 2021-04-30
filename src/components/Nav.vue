@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import store from '../store/'
 import {mapGetters} from 'vuex'
 import {mapActions} from 'vuex'
 import firebase from 'firebase'
@@ -67,15 +68,16 @@ computed: {
 }
 ,
 methods: {
-  ...mapActions({logout:'logout'}),
+  ...mapActions({logout:'logout', messageHandler:'messageHandler'}),
   signout(){
   alert('are you sure to log out')
 
   firebase.auth().signOut()
   .then(()=>{
-
-    alert('You are logged out')
-    this.$router.replace({path:'/signin'})
+    
+    this.messageHandler('You are logged out')
+   
+    this.$router.push('/signin')
 
   })
  }

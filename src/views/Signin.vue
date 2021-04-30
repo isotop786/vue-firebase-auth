@@ -63,6 +63,7 @@ computed:{
 methods:{
     ...mapActions({messageHandler:'messageHandler'}),
     signin(){
+        this.messageHandler(null)
         this.error = null
        firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
        .then(data=>{

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
@@ -21,17 +22,26 @@ const routes = [
   {
     path:"/signin",
     name: "Signin",
-    component: ()=> import ('../views/Signin')
+    component: ()=> import ('../views/Signin'),
+    meta: {
+      guest: true
+    }
   },
   {
     path:"/signup",
     name:"Signup",
-    component: ()=> import ('../views/Signup')
+    component: ()=> import ('../views/Signup'),
+    meta:{
+      guest: true
+    }
   },
   {
     path:'/dashboard',
     name:"Dashboard",
-    component: ()=> import('../views/Dashboard')
+    component: ()=> import('../views/Dashboard'),
+    meta:{
+      auth : true
+    }
   }
 ]
 
@@ -40,5 +50,33 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
+
+// router.beforeEach((to,from,next)=>{
+//  console.log(store.getters.user.loggedIn)
+// })
+
+router.beforeEach((to,from,next)=>{
+  if(!store.getters.user.loggedIn && to.meta.auth){
+    next({
+      name : 'Signin'
+    })
+  }else{
+    next()
+  }
+
+
+  if(store.getters.user.loggedIn && to.meta.guest ){
+    next({
+      name:'Home'
+    })
+  }else{
+    next()
+  }
+
+
+})
+
 
 export default router
