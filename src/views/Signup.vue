@@ -30,8 +30,8 @@
                             :class="{'is-danger':$v.form.email.$error}"
                             >
                             <template v-if="$v.form.email.$error">
-                                <p class="help is-danger" v-if="$v.form.email.required">Email is required</p>
-                                <p class="help is-danger" v-if="$v.form.email.email">Must a valid email</p>
+                                <p class="help is-danger" v-if="!$v.form.email.required">Email is required</p>
+                                <p class="help is-danger" v-if="!$v.form.email.email">Must a valid email</p>
                             
                             </template>
                         </div>
@@ -44,8 +44,8 @@
                             :class="{'is-danger':$v.form.password.$error}"
                             >
                             <template v-if="$v.form.password.$error">
-                                <p class="help is-danger" v-if="$v.form.password.required">Password is requried</p>
-                                <p class="help is-danger" v-if="$v.form.password.minLength">Password must be 6 character</p>
+                                <p class="help is-danger" v-if="!$v.form.password.required">Password is requried</p>
+                                <p class="help is-danger" v-if="!$v.form.password.minLength">Password must be 6 character</p>
                             </template>
                         </div>
                     </div>
