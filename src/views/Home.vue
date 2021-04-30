@@ -3,6 +3,7 @@
     <div class="columns">
       <div class="column is-half">
         <p class="has-text-primary">Hello</p>
+       
       </div>
     </div>
   </div>
@@ -16,6 +17,12 @@ export default {
   name: 'Home',
   components: {
     
-  }
+  },
+  data(){
+    return{
+      mesg:null
+    }
+  },
+
 }
 </script>

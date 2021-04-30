@@ -12,14 +12,29 @@
               {{message}}
           </div>
           {{getMsg}}
+
+         
+
           <form action="#">
               
               <div class="field">
                         <label class="label" for="">Email</label>
                         <div class="control">
                         <input
-                        v-model="form.email"
-                         class="input" type="email" placeholder="e.g user@example.com" >
+                        v-model="$v.form.email.$model"
+                         class="input" type="email" placeholder="e.g user@example.com" 
+                         
+                        :class="{'is-danger' : $v.form.email.$error}"
+                         >
+                         <template v-if="$v.form.email.$error">
+                            <p class="help is-danger" v-if="!$v.form.email.required">
+                                Email is required
+                            </p>
+
+                            <p class="help is-danger" v-if="!$v.form.password.email">
+                                Is not a valid email
+                            </p>
+                         </template>
                         </div>
               </div>
 
@@ -27,8 +42,13 @@
                         <label class="label" for="">Password</label>
                         <div class="control">
                         <input
-                        v-model="form.password"
-                         class="input" type="password"  >
+                        v-model="$v.form.password.$model"
+                         class="input" type="password" 
+                         :class="{'is-danger':$v.form.password.$error}"
+                          >
+                          <template v-if="$v.form.password.$error">
+                              <p class="help is-danger">Password is required</p>
+                          </template>
                         </div>
               </div>
               <div class="feild">
@@ -44,6 +64,7 @@
 import firebase from 'firebase';
 import {mapGetters} from 'vuex';
 import {mapActions} from 'vuex';
+import {required,email} from 'vuelidate/lib/validators';
 export default {
 name:"Signin",
 data(){
@@ -57,6 +78,20 @@ data(){
         message:null
     }
 },
+
+validations:{
+    form :{
+        email:{
+            required,
+            email
+        },
+
+        password: {
+            required
+        }
+    }
+},
+
 computed:{
     ...mapGetters({getMsg:'getMsg'})
 },
