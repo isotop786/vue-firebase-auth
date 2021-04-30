@@ -50,7 +50,7 @@
                         </div>
                     </div>
 
-                     <div class="field">
+                     <!-- <div class="field">
                         <label for="" class="label">Confirm Password</label>
                         <div class="control">
                             <input type="password" class="is-primary input" v-model="pass2" @keyup="passCheck">
@@ -58,7 +58,7 @@
                                 <p class="has-text-danger">{{pass_error}}</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="control">
                         <button @click.prevent="submit" class="button is-primary">Signup</button>
                     </div>
@@ -119,7 +119,7 @@ methods:{
    },
 
    submit(){
-      firebase.auth().createUserWithEmailAndPassword(this.form.email, this.pass1)
+      firebase.auth().createUserWithEmailAndPassword(this.form.email, this.form.password)
       .then(data=>{
          data.user.updateProfile({
              displayName : this.form.name
@@ -127,6 +127,7 @@ methods:{
       })
       .then(()=>{
           alert("User Registered")
+          this.$router.replace({path:'/'})
       })
       .catch(err=>{
           this.error = err.message
